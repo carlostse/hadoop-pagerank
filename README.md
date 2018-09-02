@@ -1,4 +1,5 @@
 # Hadoop PageRank with Go
+[![Build Status](https://travis-ci.org/carlostse/hadoop-pagerank.svg?branch=master)](https://travis-ci.org/carlostse/hadoop-pagerank)
 
 An implementation of using Hadoop with Google Go (golang) to calculate the PageRank for demo purpose
 
@@ -20,5 +21,4 @@ hadoop dfs -mkdir /input
 hadoop dfs -put input_data /input
 ./submit-1.sh
 ```
-
 
