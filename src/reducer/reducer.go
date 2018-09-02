@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"../util"
 )
 
 const DAMPING_FACTOR = "0.85"
@@ -43,7 +45,7 @@ func splitKeyValue(line string) (string, string) {
 
 func main() {
 	// return 0.15 and 0.85
-	df_a, df_b := DampingFactor(DAMPING_FACTOR)
+	df_a, df_b := util.DampingFactor(DAMPING_FACTOR)
 
 	// get num of page
 	num_of_page_str := readNumOfPageToHDFS()
@@ -52,7 +54,7 @@ func main() {
 		log.Fatal("cannot read num of page from HDFS")
 	}
 
-	num_of_page := ParseBigDecimal(num_of_page_str)
+	num_of_page := util.ParseBigDecimal(num_of_page_str)
 
 	// start to prcess stdin
 	buf, _ := ioutil.ReadAll(os.Stdin)
@@ -67,23 +69,23 @@ func main() {
 			if value[0] == '[' {
 				curNode = value[1 : len(value)-1]
 			} else {
-				curRank.Add(curRank, ParseBigDecimal(value))
+				curRank.Add(curRank, util.ParseBigDecimal(value))
 			}
 		} else {
 			// key changed, i.e., next item, then emit
 			if len(curKey) > 0 {
-				pagerank := calcPagerank(df_a, df_b, num_of_page, curRank)
-				fmt.Printf("%s\t[%s]\t%s\n", curKey, curNode, FormatBigDecimal(pagerank))
+				pagerank := util.CalcPagerank(df_a, df_b, num_of_page, curRank)
+				fmt.Printf("%s\t[%s]\t%s\n", curKey, curNode, util.FormatBigDecimal(pagerank))
 			}
 			curKey = key
-			curRank = ParseBigDecimal(value)
+			curRank = util.ParseBigDecimal(value)
 			curNode = value[1 : len(value)-1]
 		}
 	}
 
 	// emit the last
 	if len(curKey) > 0 {
-		pagerank := calcPagerank(df_a, df_b, num_of_page, curRank)
-		fmt.Printf("%s\t[%s]\t%s\n", curKey, curNode, FormatBigDecimal(pagerank))
+		pagerank := util.CalcPagerank(df_a, df_b, num_of_page, curRank)
+		fmt.Printf("%s\t[%s]\t%s\n", curKey, curNode, util.FormatBigDecimal(pagerank))
 	}
 }

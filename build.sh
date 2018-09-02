@@ -1,5 +1,12 @@
 #!/bin/bash
-rm -f mapper preprocess reducer || true
-go build preprocess.go util.go
-go build mapper.go util.go
-go build reducer.go util.go
+BIN="./bin"
+
+if [ -d "$BIN" ]; then
+  rm -rf $BIN/* || true
+else
+  mkdir -p $BIN
+fi
+
+go build -o $BIN/preprocess src/preprocess/preprocess.go
+go build -o $BIN/mapper src/mapper/mapper.go
+go build -o $BIN/reducer src/reducer/reducer.go

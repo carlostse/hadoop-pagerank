@@ -1,4 +1,4 @@
-package main
+package util
 
 import "math/big"
 
@@ -29,7 +29,7 @@ func DampingFactor(s string) (*big.Rat, *big.Rat) {
 	return a, b
 }
 
-func calcPagerank(dA, dB, numOfPage, curRank *big.Rat) *big.Rat {
+func CalcPagerank(dA, dB, numOfPage, curRank *big.Rat) *big.Rat {
 	a, b, c := new(big.Rat), new(big.Rat), new(big.Rat)
 
 	// pagerank := (1 - 0.85) / numOfPage + 0.85 * curRank

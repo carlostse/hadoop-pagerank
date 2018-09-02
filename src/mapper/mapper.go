@@ -7,6 +7,8 @@ import (
 	"math/big"
 	"os"
 	"strings"
+
+	"../util"
 )
 
 func splitValues(line string) (string, []string, *big.Rat) {
@@ -20,7 +22,7 @@ func splitValues(line string) (string, []string, *big.Rat) {
 	dest_nodes := strings.Split(dest_node_str, ",")
 	num_of_node := len(dest_nodes)
 
-	src_pagerank := ParseBigDecimal(vars[2])
+	src_pagerank := util.ParseBigDecimal(vars[2])
 
 	dest_pagerank := new(big.Rat)
 	dest_pagerank.Quo(src_pagerank, big.NewRat(int64(num_of_node), 1))
@@ -53,7 +55,7 @@ func main() {
 			}
 
 			// emit the pagerank
-			fmt.Printf("%s\t%s\n", node, FormatBigDecimal(dest_pagerank))
+			fmt.Printf("%s\t%s\n", node, util.FormatBigDecimal(dest_pagerank))
 
 			emitted_node = append(emitted_node, node)
 		}
@@ -73,7 +75,7 @@ func main() {
 
 		// emit the additional pagerank for each emitted node
 		for _, node := range emitted_node {
-			fmt.Printf("%s\t%s\n", node, FormatBigDecimal(pr_for_each_em_node))
+			fmt.Printf("%s\t%s\n", node, util.FormatBigDecimal(pr_for_each_em_node))
 		}
 	}
 }

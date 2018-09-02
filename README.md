@@ -16,7 +16,7 @@ There are two sample input files provided
 For Hadoop 1.2.1
 ```
 ./build.sh
-./preprocess -file sample_without_dead_node.tsv > input_data
+bin/preprocess -file sample_without_dead_node.tsv > input_data
 hadoop dfs -mkdir /input
 hadoop dfs -put input_data /input
 ./submit-1.sh
