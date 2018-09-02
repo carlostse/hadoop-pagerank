@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"../util"
+	"util"
 )
 
 func saveNumOfPageToHDFS(num_of_page int) error {

@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"../util"
+	"util"
 )
 
 func splitValues(line string) (string, []string, *big.Rat) {

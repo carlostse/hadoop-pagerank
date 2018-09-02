@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	"../util"
+	"util"
 )
 
 const DAMPING_FACTOR = "0.85"
